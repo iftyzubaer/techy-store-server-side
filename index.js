@@ -65,11 +65,22 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/cart', async(req, res) => {
+            const cursor = cartItemCollection.find()
+            const result = await cursor.toArray()
+            res.send(result)
+        })
+
         app.post('/cart', async(req, res) => {
             const newCartItem = req.body
             console.log(newCartItem);
             const result = await cartItemCollection.insertOne(newCartItem)
             res.send(result)
+        })
+
+        app.delete('/cart/:id', async(req, res) => {
+            const id = req.params.id
+            const query = {_id: ObjectId}
         })
 
         // Send a ping to confirm a successful connection
